@@ -1,7 +1,31 @@
-# Tauri + React + Typescript
+# dao
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+A local-first desktop developer workbench built with Tauri, React, TypeScript, and Rust.
 
-## Recommended IDE Setup
+## Tools (V0)
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+- **LAN Drop Server** — Receive files over the local network via temporary embedded HTTP upload endpoint.
+- **Env Scrubber** — Sanitize dotenv assignments while preserving structure, keys, and comments.
+
+## Development
+
+```bash
+bun install
+bun run dev
+bun run tauri dev
+```
+
+## Quality Checks
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+cd src-tauri && cargo fmt -- --check
+cd src-tauri && cargo clippy --all-targets --all-features -- -D warnings
+cd src-tauri && cargo test
+```
+
+## Authorship
+
+[commodore64.dev](https://commodore64.dev)
