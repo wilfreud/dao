@@ -10,6 +10,7 @@ describe("FuseSearchEngine", () => {
       "drop-server",
       "env-scrubber",
       "port-inspector",
+      "qr-generator",
     ]);
     expect(hits.every((h) => h.relevance === 1)).toBe(true);
   });
@@ -70,12 +71,30 @@ describe("FuseSearchEngine", () => {
     }
   });
 
+  it("ranks QR Generator first for qr and barcode queries", () => {
+    const queries = [
+      "make qr",
+      "qr url",
+      "turn link into qr",
+      "barcode",
+      "generate qr from text",
+    ];
+
+    for (const q of queries) {
+      const hits = defaultSearchEngine.search(q, toolRegistry);
+      expect(hits.length).toBeGreaterThan(0);
+      expect(hits[0].tool.id).toBe("qr-generator");
+      expect(hits[0].relevance).toBeGreaterThan(0.5);
+    }
+  });
+
   it("is tolerant to typos in tool names and intent queries", () => {
     const typoQueries = [
       { query: "drop servr", expectedId: "drop-server" },
       { query: "env scrubbr", expectedId: "env-scrubber" },
       { query: "dotnev", expectedId: "env-scrubber" },
       { query: "lan uplod", expectedId: "drop-server" },
+      { query: "qr generatr", expectedId: "qr-generator" },
     ];
 
     for (const { query, expectedId } of typoQueries) {

@@ -3,6 +3,7 @@ import { LauncherPage } from "./LauncherPage";
 import { DropServerPage } from "../tools/drop-server/DropServerPage";
 import { EnvScrubberPage } from "../tools/env-scrubber/EnvScrubberPage";
 import { PortInspectorPage } from "../tools/port-inspector/PortInspectorPage";
+import { QrGeneratorPage } from "../tools/qr-generator/QrGeneratorPage";
 import { NotFoundPage } from "./NotFoundPage";
 
 export const router = createHashRouter([
@@ -21,6 +22,10 @@ export const router = createHashRouter([
   {
     path: "/tools/port-inspector",
     element: <PortInspectorPage />,
+  },
+  {
+    path: "/tools/qr-generator",
+    element: <QrGeneratorPage />,
   },
   {
     path: "*",

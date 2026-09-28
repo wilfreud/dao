@@ -2,6 +2,7 @@ import type { ToolManifest } from "../contracts/tools";
 import { dropServerManifest } from "../tools/drop-server/manifest";
 import { envScrubberManifest } from "../tools/env-scrubber/manifest";
 import { portInspectorManifest } from "../tools/port-inspector/manifest";
+import { qrGeneratorManifest } from "../tools/qr-generator/manifest";
 
 export function assertRegistryInvariants(
   tools: readonly ToolManifest[]
@@ -42,6 +43,7 @@ export const toolRegistry: readonly ToolManifest[] = Object.freeze([
   dropServerManifest,
   envScrubberManifest,
   portInspectorManifest,
+  qrGeneratorManifest,
 ]);
 
 // Validate static registry invariants on module initialization

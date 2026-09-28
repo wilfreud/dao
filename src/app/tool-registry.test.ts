@@ -4,11 +4,12 @@ import type { ToolManifest } from "../contracts/tools";
 import { FolderDown } from "lucide-react";
 
 describe("toolRegistry", () => {
-  it("contains drop-server, env-scrubber, and port-inspector tools", () => {
+  it("contains drop-server, env-scrubber, port-inspector, and qr-generator tools", () => {
     expect(toolRegistry.map((t) => t.id)).toEqual([
       "drop-server",
       "env-scrubber",
       "port-inspector",
+      "qr-generator",
     ]);
   });
 
