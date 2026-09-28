@@ -48,6 +48,10 @@ Apply these project skills when relevant:
 - React: keep business logic outside render functions; accessible controls; no implementation-detail-heavy tests.
 - Prefer composition over deep component abstraction.
 
+## Commit conventions
+
+All commit messages must strictly follow the Conventional Commits specification (e.g., `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`).
+
 ## Verification before declaring a handoff complete
 
 Run the relevant checks and report their actual result:
