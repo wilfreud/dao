@@ -18,6 +18,13 @@ pub enum CommandErrorCode {
     PortInUse,
     ServerBindFailed,
     ServerInternal,
+    SocketTableUnavailable,
+    ProcessLookupFailed,
+    ProcessNotFound,
+    ProtectedProcess,
+    TerminationDenied,
+    TerminationFailed,
+    UnsupportedPlatform,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -77,6 +84,27 @@ pub enum AppError {
 
     #[error("Internal server error: {0}")]
     ServerInternal(String),
+
+    #[error("Socket table unavailable: {0}")]
+    SocketTableUnavailable(String),
+
+    #[error("Process lookup failed: {0}")]
+    ProcessLookupFailed(String),
+
+    #[error("Process with PID {0} not found")]
+    ProcessNotFound(u32),
+
+    #[error("Cannot terminate protected process {0}: {1}")]
+    ProtectedProcess(u32, String),
+
+    #[error("Permission denied when terminating PID {0}: {1}")]
+    TerminationDenied(u32, String),
+
+    #[error("Failed to terminate PID {0}: {1}")]
+    TerminationFailed(u32, String),
+
+    #[error("Operation is not supported on this platform: {0}")]
+    UnsupportedPlatform(String),
 }
 
 impl From<AppError> for AppCommandError {
@@ -95,6 +123,13 @@ impl From<AppError> for AppCommandError {
             AppError::PortInUse(_) => CommandErrorCode::PortInUse,
             AppError::ServerBindFailed(_, _, _) => CommandErrorCode::ServerBindFailed,
             AppError::ServerInternal(_) => CommandErrorCode::ServerInternal,
+            AppError::SocketTableUnavailable(_) => CommandErrorCode::SocketTableUnavailable,
+            AppError::ProcessLookupFailed(_) => CommandErrorCode::ProcessLookupFailed,
+            AppError::ProcessNotFound(_) => CommandErrorCode::ProcessNotFound,
+            AppError::ProtectedProcess(_, _) => CommandErrorCode::ProtectedProcess,
+            AppError::TerminationDenied(_, _) => CommandErrorCode::TerminationDenied,
+            AppError::TerminationFailed(_, _) => CommandErrorCode::TerminationFailed,
+            AppError::UnsupportedPlatform(_) => CommandErrorCode::UnsupportedPlatform,
         };
 
         Self {

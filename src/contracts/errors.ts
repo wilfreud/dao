@@ -11,7 +11,14 @@ export type CommandErrorCode =
   | "SERVER_TRANSITION_IN_PROGRESS"
   | "PORT_IN_USE"
   | "SERVER_BIND_FAILED"
-  | "SERVER_INTERNAL";
+  | "SERVER_INTERNAL"
+  | "SOCKET_TABLE_UNAVAILABLE"
+  | "PROCESS_LOOKUP_FAILED"
+  | "PROCESS_NOT_FOUND"
+  | "PROTECTED_PROCESS"
+  | "TERMINATION_DENIED"
+  | "TERMINATION_FAILED"
+  | "UNSUPPORTED_PLATFORM";
 
 export interface AppCommandError {
   readonly code: CommandErrorCode;

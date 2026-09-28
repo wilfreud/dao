@@ -6,7 +6,11 @@ describe("FuseSearchEngine", () => {
   it("returns all tools with relevance 1 on empty query", () => {
     const hits = defaultSearchEngine.search("", toolRegistry);
     expect(hits).toHaveLength(toolRegistry.length);
-    expect(hits.map((h) => h.tool.id)).toEqual(["drop-server", "env-scrubber"]);
+    expect(hits.map((h) => h.tool.id)).toEqual([
+      "drop-server",
+      "env-scrubber",
+      "port-inspector",
+    ]);
     expect(hits.every((h) => h.relevance === 1)).toBe(true);
   });
 
@@ -45,6 +49,23 @@ describe("FuseSearchEngine", () => {
       const hits = defaultSearchEngine.search(q, toolRegistry);
       expect(hits.length).toBeGreaterThan(0);
       expect(hits[0].tool.id).toBe("env-scrubber");
+      expect(hits[0].relevance).toBeGreaterThan(0.5);
+    }
+  });
+
+  it("ranks Port Inspector first for port inspection and process termination queries", () => {
+    const queries = [
+      "kill 3000",
+      "who uses port 5432",
+      "lsof",
+      "port already in use",
+      "find process by port",
+    ];
+
+    for (const q of queries) {
+      const hits = defaultSearchEngine.search(q, toolRegistry);
+      expect(hits.length).toBeGreaterThan(0);
+      expect(hits[0].tool.id).toBe("port-inspector");
       expect(hits[0].relevance).toBeGreaterThan(0.5);
     }
   });

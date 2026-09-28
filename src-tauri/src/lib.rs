@@ -11,6 +11,7 @@ use tools::drop_server::{
     },
     manager::DropServerManager,
 };
+use tools::port_inspector::commands::{inspect_port, terminate_port_process};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -28,6 +29,8 @@ pub fn run() {
             drop_server_start,
             drop_server_stop,
             drop_server_status,
+            inspect_port,
+            terminate_port_process,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
